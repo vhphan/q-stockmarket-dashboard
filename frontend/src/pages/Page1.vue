@@ -1,37 +1,29 @@
 <template>
-
-    <div
-
-    >
-
-                <q-splitter
-                        v-model="vSplitterModel"
-                        separator-class="bg-red"
-                        separator-style="width: 3px"
-                        :limits="[5,95]"
-                >
-
-                    <template v-slot:before>
-                        <div class="left-container">
-                            <tabs/>
-                        </div>
-                    </template>
-
-                    <template v-slot:separator>
-                        <q-avatar color="primary" text-color="white" size="30px" icon="drag_indicator"/>
-                    </template>
-
-                    <template v-slot:after>
-                        <div class="q-pa-xs right-container" >
-                        </div>
-                    </template>
-                </q-splitter>
-
-
-
+    <div>
+        <q-splitter
+                v-model="vSplitterModel"
+                separator-class="bg-red"
+                separator-style="width: 3px"
+                :limits="[5,95]"
+        >
+            <template v-slot:before>
+                <div class="left-container">
+                    <tabs/>
+                </div>
+            </template>
+            <template v-slot:separator>
+                <q-avatar color="primary"
+                          text-color="white"
+                          size="30px"
+                          icon="drag_indicator"/>
+            </template>
+            <template v-slot:after>
+                <div class="q-pa-xs right-container">
+                    <major-indexes />
+                </div>
+            </template>
+        </q-splitter>
     </div>
-
-
 </template>
 
 <script>
@@ -40,11 +32,12 @@ import {useMainStore} from "@/store/mainStore.js";
 import {computed, onMounted, ref} from "vue";
 import Tabs from "@/components/Tabs.vue";
 import TopGainers from "@/components/TopGainers.vue";
+import MajorIndexes from "@/components/MajorIndexes.vue";
 
 
 export default {
     name: "Page1",
-    components: {TopGainers, Tabs},
+    components: {MajorIndexes, TopGainers, Tabs},
     setup() {
 
         const mainStore = useMainStore();
@@ -60,12 +53,12 @@ export default {
         );
 
         const hSplitterModel = ref(50);
-        const cssTableHeight= ref(`calc(${100 - hSplitterModel.value}vh - 90px)`)
+        const cssTableHeight = ref(`calc(${100 - hSplitterModel.value}vh - 90px)`);
         const toolBarHeight = computed(() => {
             return document.querySelector('.q-toolbar').clientHeight;
         });
         const containerHeight = computed(() => {
-            return `calc(100vh - ${toolBarHeight.value}px)`
+            return `calc(100vh - ${toolBarHeight.value}px)`;
         });
 
 

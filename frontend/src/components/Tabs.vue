@@ -10,6 +10,7 @@
                         indicator-color="primary"
                         align="justify"
                         narrow-indicator
+
                 >
                     <q-tab v-for="tab in tabs" :key="tab.name"
                            :label="tab.name"
@@ -21,7 +22,10 @@
 
                 <q-tab-panels keep-alive v-model="tab" animated>
                     <q-tab-panel
-                        v-for="tab in tabs" :key="tab.name" :name="tab.name"
+                            v-for="tab in tabs"
+                            :key="tab.name"
+                            :name="tab.name"
+                            :style="`height: ${containerHeight}`"
                     >
                         <component :is="tab.componentName"></component>
                     </q-tab-panel>
@@ -33,12 +37,13 @@
 </template>
 
 <script>
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 import MarketNews from "@/components/MarketNews.vue";
 import TopGainers from "@/components/TopGainers.vue";
 
 export default {
     components: {TopGainers, MarketNews},
+
     setup() {
 
         const tab = ref('marketNews');
@@ -53,11 +58,16 @@ export default {
                 componentName: 'TopGainers'
             }
         ];
-
-
+        const toolBarHeight = computed(() => {
+            return document.querySelector('.q-toolbar').clientHeight;
+        });
+        const containerHeight = computed(() => {
+            return `calc(100vh - ${toolBarHeight.value}px - 90px)`
+        });
         return {
             tab,
             tabs,
+            containerHeight
         };
     }
 }
