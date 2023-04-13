@@ -1,9 +1,7 @@
 <template>
-
     <div v-for="news in marketNews" :key="news.id">
         <news-item :news="news"/>
     </div>
-
 </template>
 
 <script setup>

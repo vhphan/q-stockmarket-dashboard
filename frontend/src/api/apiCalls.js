@@ -20,3 +20,8 @@ export const apiGetTopGainers = async () => {
 export const apiGetMajorIndexes = async () => {
     return (await api.get('/getMajorIndexes')).data;
 }
+
+export const apiGetNDaysTrendOfMajorIndexes = async (majorIndexes, numberOfDays) => {
+    const queryString = majorIndexes.map(d => `symbols[]=${d}`).join('&');
+    return (await api.get(`/getDailyTrendMultiSymbols?${queryString}&numberOfDays=${numberOfDays}`)).data;
+}

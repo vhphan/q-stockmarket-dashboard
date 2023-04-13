@@ -33,4 +33,5 @@ myApp.use(router);
 // Assumes you have a <div id="app"></div> in your index.html
 myApp.use(pinia);
 
+
 myApp.mount('#app');

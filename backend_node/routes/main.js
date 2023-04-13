@@ -16,5 +16,6 @@ router.get('/getMarketNews', controller.getMarketNews);
 router.get('/getMajorIndexes', controller.getMajorIndexes);
 
 router.get('/getTopGainers', controller.getTopGainers);
+router.get('/getDailyTrendMultiSymbols', controller.getDailyTrendMultiSymbols);
 
 module.exports = router;

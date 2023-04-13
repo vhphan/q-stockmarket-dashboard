@@ -24,7 +24,6 @@ const finnhub = require("finnhub");
 )();
 
 
-
 // create a cron job to update alpaca data every 30 minutes
 const cron = require('node-cron');
 const {updateAlpacaData} = require("#src/controllers/marketData");
@@ -83,7 +82,7 @@ const getMarketNews = async (req, res) => {
             }
         );
     });
-}
+};
 
 const getMajorIndexes = async (req, res) => {
     const data = await marketData.getMajorIndexes();
@@ -91,7 +90,7 @@ const getMajorIndexes = async (req, res) => {
         data,
         success: true,
     });
-}
+};
 
 const getTopGainers = async (req, res) => {
     // scrape yahoo finance for top gainers
@@ -100,7 +99,19 @@ const getTopGainers = async (req, res) => {
         data,
         success: true,
     });
-}
+};
+
+const getDailyTrendMultiSymbols = async (req, res) => {
+    const {symbols, numberOfDays} = req.query;
+    const data = await marketData.getBarsMultipleSymbols({
+        symbols,
+        numberOfDays,
+    });
+    res.json({
+        data,
+        success: true,
+    });
+};
 
 // const topGainers24Hours = async (req, res) => {
 //
@@ -124,7 +135,7 @@ async function cheers(url) {
     const html = await axios.get(url);
     const cheerio = require('cheerio');
     const $ = cheerio.load(html.data);
-    return  $('meta[property="og:description"]').attr('content');
+    return $('meta[property="og:description"]').attr('content');
 }
 
 
@@ -137,4 +148,5 @@ module.exports = {
     getMarketNews,
     getMajorIndexes,
     getTopGainers,
+    getDailyTrendMultiSymbols,
 };

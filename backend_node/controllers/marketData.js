@@ -44,6 +44,21 @@ async function getBars({symbol, numberOfDays = 10, timeframe = "1Day"}) {
 
 }
 
+async function getBarsMultipleSymbols({symbols, numberOfDays = 10, timeframe = "1Day"}) {
+    console.log(symbols);
+    const alpaca = global.__alpaca;
+    const lastNTradingDays = getLastNTradingDays(numberOfDays);
+
+    const bars = alpaca.getMultiBarsAsyncV2(symbols, {
+        start: lastNTradingDays.shift().date,
+        // end: last10TradingDays.pop().date,
+        timeframe: timeframe,
+        adjustment: "all",
+    });
+    return await getDataFromAsyncGenerator(bars);
+
+}
+
 async function getDataFromAsyncGenerator(generator) {
     const data = [];
     for await (const d of generator) {
@@ -94,4 +109,5 @@ module.exports = {
     getBars,
     getMajorIndexes,
     updateAlpacaData,
+    getBarsMultipleSymbols,
 };

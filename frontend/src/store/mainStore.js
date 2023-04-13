@@ -1,5 +1,10 @@
 import {defineStore} from 'pinia';
-import {apiGetMajorIndexes, apiGetMarketNews, apiGetTopGainers} from "@/api/apiCalls.js";
+import {
+    apiGetMajorIndexes,
+    apiGetMarketNews,
+    apiGetNDaysTrendOfMajorIndexes,
+    apiGetTopGainers
+} from "@/api/apiCalls.js";
 
 export const useMainStore = defineStore({
     id: 'mainStore',
@@ -7,6 +12,8 @@ export const useMainStore = defineStore({
         marketNews: [],
         topGainers: [],
         majorIndexes: [],
+        symbolsOfMajorIndexes: [],
+        NDaysTrendOfMajorIndexes: [],
     }),
     actions: {
         async fetchMarketNews() {
@@ -17,8 +24,17 @@ export const useMainStore = defineStore({
         },
         async fetchMajorIndexes() {
             this.majorIndexes = (await apiGetMajorIndexes()).data;
+            this.symbolsOfMajorIndexes = this.majorIndexes.map(d => d.symbol);
+        },
+        async fetchNDaysTrendOfMajorIndexes(numberOfDays) {
+            if (this.majorIndexes.length === 0) {
+                await this.fetchMajorIndexes();
+            }
+            if (this.majorIndexes.length === 0) {
+                return;
+            }
+            this.NDaysTrendOfMajorIndexes = (await apiGetNDaysTrendOfMajorIndexes(this.majorIndexesSymbols, numberOfDays)).data;
         }
-
 
     },
     getters: {
@@ -27,10 +43,17 @@ export const useMainStore = defineStore({
                 return [];
             }
             return Object.keys(state.topGainers[0]).map(d => ({
-                name: d,
-                label: d,
-                field: d,
-            }));
+                    name: d,
+                    label: d,
+                    field: d,
+                })
+            );
+        },
+        majorIndexesSymbols: (state) => {
+            if (state.majorIndexes.length === 0) {
+                return [];
+            }
+            return state.majorIndexes.map(d => d.symbol);
         }
     }
 });
