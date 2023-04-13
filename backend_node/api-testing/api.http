@@ -1,0 +1,30 @@
+### GET request with a header
+GET http://localhost:3004/api/v1
+Content-Type: application/json
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getBars
+Content-Type: application/json
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getMarketNews
+Content-Type: application/json
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getTopGainers
+Content-Type: application/json
+
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getMajorIndexes
+Content-Type: application/json
+
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getBars?timeframe=1H&symbol=GOOG
+Content-Type: application/json

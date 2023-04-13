@@ -1,0 +1,349 @@
+{
+  "data": [
+    {
+      "symbol": "DBC",
+      "LatestTrade": {
+        "Timestamp": "2023-04-11T19:58:25.52051328Z",
+        "Exchange": "V",
+        "Price": 24.265,
+        "Size": 190,
+        "Conditions": [
+          " "
+        ],
+        "ID": 56381436091482,
+        "Tape": "B"
+      },
+      "LatestQuote": {
+        "Timestamp": "2023-04-11T20:59:00.002978304Z",
+        "AskExchange": "V",
+        "AskPrice": 24.6,
+        "AskSize": 1,
+        "BidExchange": "V",
+        "BidPrice": 23.96,
+        "BidSize": 1,
+        "Conditions": [
+          "R"
+        ],
+        "Tape": "B"
+      },
+      "MinuteBar": {
+        "Timestamp": "2023-04-11T19:58:00Z",
+        "OpenPrice": 24.265,
+        "HighPrice": 24.265,
+        "LowPrice": 24.265,
+        "ClosePrice": 24.265,
+        "Volume": 190,
+        "TradeCount": 1,
+        "VWAP": 24.265
+      },
+      "DailyBar": {
+        "Timestamp": "2023-04-11T04:00:00Z",
+        "OpenPrice": 24.125,
+        "HighPrice": 24.3,
+        "LowPrice": 24.125,
+        "ClosePrice": 24.265,
+        "Volume": 7335,
+        "TradeCount": 30,
+        "VWAP": 24.210311
+      },
+      "PrevDailyBar": {
+        "Timestamp": "2023-04-10T04:00:00Z",
+        "OpenPrice": 24.09,
+        "HighPrice": 24.15,
+        "LowPrice": 24.05,
+        "ClosePrice": 24.13,
+        "Volume": 7549,
+        "TradeCount": 48,
+        "VWAP": 24.115669
+      }
+    },
+    {
+      "symbol": "DIA",
+      "LatestTrade": {
+        "Timestamp": "2023-04-11T19:59:59.578153472Z",
+        "Exchange": "V",
+        "Price": 336.91,
+        "Size": 100,
+        "Conditions": [
+          " "
+        ],
+        "ID": 56394285464952,
+        "Tape": "B"
+      },
+      "LatestQuote": {
+        "Timestamp": "2023-04-11T20:29:40.56632448Z",
+        "AskExchange": "V",
+        "AskPrice": 337.2,
+        "AskSize": 5,
+        "BidExchange": "V",
+        "BidPrice": 337.14,
+        "BidSize": 5,
+        "Conditions": [
+          "R"
+        ],
+        "Tape": "B"
+      },
+      "MinuteBar": {
+        "Timestamp": "2023-04-11T19:59:00Z",
+        "OpenPrice": 336.8,
+        "HighPrice": 336.92,
+        "LowPrice": 336.78,
+        "ClosePrice": 336.91,
+        "Volume": 1237,
+        "TradeCount": 17,
+        "VWAP": 336.853007
+      },
+      "DailyBar": {
+        "Timestamp": "2023-04-11T04:00:00Z",
+        "OpenPrice": 336.31,
+        "HighPrice": 337.83,
+        "LowPrice": 336.07,
+        "ClosePrice": 336.91,
+        "Volume": 40617,
+        "TradeCount": 493,
+        "VWAP": 337.114849
+      },
+      "PrevDailyBar": {
+        "Timestamp": "2023-04-10T04:00:00Z",
+        "OpenPrice": 334.05,
+        "HighPrice": 335.85,
+        "LowPrice": 333.5,
+        "ClosePrice": 335.85,
+        "Volume": 62620,
+        "TradeCount": 574,
+        "VWAP": 334.78342
+      }
+    },
+    {
+      "symbol": "IWM",
+      "LatestTrade": {
+        "Timestamp": "2023-04-11T20:02:39.801456896Z",
+        "Exchange": "V",
+        "Price": 177.28,
+        "Size": 500,
+        "Conditions": [
+          " ",
+          "T"
+        ],
+        "ID": 56394619315528,
+        "Tape": "B"
+      },
+      "LatestQuote": {
+        "Timestamp": "2023-04-11T20:57:42.469722624Z",
+        "AskExchange": "V",
+        "AskPrice": 177.21,
+        "AskSize": 5,
+        "BidExchange": "V",
+        "BidPrice": 177.15,
+        "BidSize": 5,
+        "Conditions": [
+          "R"
+        ],
+        "Tape": "B"
+      },
+      "MinuteBar": {
+        "Timestamp": "2023-04-11T20:02:00Z",
+        "OpenPrice": 177.28,
+        "HighPrice": 177.28,
+        "LowPrice": 177.28,
+        "ClosePrice": 177.28,
+        "Volume": 500,
+        "TradeCount": 1,
+        "VWAP": 177.28
+      },
+      "DailyBar": {
+        "Timestamp": "2023-04-11T04:00:00Z",
+        "OpenPrice": 176.55,
+        "HighPrice": 177.965,
+        "LowPrice": 176.13,
+        "ClosePrice": 177.13,
+        "Volume": 413206,
+        "TradeCount": 3785,
+        "VWAP": 177.287849
+      },
+      "PrevDailyBar": {
+        "Timestamp": "2023-04-10T04:00:00Z",
+        "OpenPrice": 173.1,
+        "HighPrice": 175.875,
+        "LowPrice": 173.07,
+        "ClosePrice": 175.82,
+        "Volume": 397416,
+        "TradeCount": 4217,
+        "VWAP": 174.990192
+      }
+    },
+    {
+      "symbol": "MDY",
+      "LatestTrade": {
+        "Timestamp": "2023-04-11T19:59:59.055475712Z",
+        "Exchange": "V",
+        "Price": 456.14,
+        "Size": 100,
+        "Conditions": [
+          " "
+        ],
+        "ID": 56394267514672,
+        "Tape": "B"
+      },
+      "LatestQuote": {
+        "Timestamp": "2023-04-11T20:00:00.004930816Z",
+        "AskExchange": "V",
+        "AskPrice": 0,
+        "AskSize": 0,
+        "BidExchange": "V",
+        "BidPrice": 0,
+        "BidSize": 0,
+        "Conditions": [
+          "R"
+        ],
+        "Tape": "B"
+      },
+      "MinuteBar": {
+        "Timestamp": "2023-04-11T19:59:00Z",
+        "OpenPrice": 456.02,
+        "HighPrice": 456.14,
+        "LowPrice": 455.995,
+        "ClosePrice": 456.14,
+        "Volume": 982,
+        "TradeCount": 20,
+        "VWAP": 456.075479
+      },
+      "DailyBar": {
+        "Timestamp": "2023-04-11T04:00:00Z",
+        "OpenPrice": 454.195,
+        "HighPrice": 457.88,
+        "LowPrice": 454.16,
+        "ClosePrice": 456.14,
+        "Volume": 8803,
+        "TradeCount": 234,
+        "VWAP": 455.806364
+      },
+      "PrevDailyBar": {
+        "Timestamp": "2023-04-10T04:00:00Z",
+        "OpenPrice": 444.94,
+        "HighPrice": 452.135,
+        "LowPrice": 444.94,
+        "ClosePrice": 452.135,
+        "Volume": 9097,
+        "TradeCount": 236,
+        "VWAP": 450.322107
+      }
+    },
+    {
+      "symbol": "SPY",
+      "LatestTrade": {
+        "Timestamp": "2023-04-11T20:45:39.530643456Z",
+        "Exchange": "V",
+        "Price": 409.88,
+        "Size": 500,
+        "Conditions": [
+          " ",
+          "T"
+        ],
+        "ID": 56394971171183,
+        "Tape": "B"
+      },
+      "LatestQuote": {
+        "Timestamp": "2023-04-11T20:58:09.000986624Z",
+        "AskExchange": "V",
+        "AskPrice": 409.9,
+        "AskSize": 5,
+        "BidExchange": "V",
+        "BidPrice": 409.78,
+        "BidSize": 5,
+        "Conditions": [
+          "R"
+        ],
+        "Tape": "B"
+      },
+      "MinuteBar": {
+        "Timestamp": "2023-04-11T20:45:00Z",
+        "OpenPrice": 409.93,
+        "HighPrice": 409.93,
+        "LowPrice": 409.88,
+        "ClosePrice": 409.88,
+        "Volume": 2100,
+        "TradeCount": 5,
+        "VWAP": 409.91619
+      },
+      "DailyBar": {
+        "Timestamp": "2023-04-11T04:00:00Z",
+        "OpenPrice": 410.12,
+        "HighPrice": 411.16,
+        "LowPrice": 408.95,
+        "ClosePrice": 409.695,
+        "Volume": 988721,
+        "TradeCount": 10988,
+        "VWAP": 410.106162
+      },
+      "PrevDailyBar": {
+        "Timestamp": "2023-04-10T04:00:00Z",
+        "OpenPrice": 406.6,
+        "HighPrice": 409.68,
+        "LowPrice": 405.985,
+        "ClosePrice": 409.68,
+        "Volume": 1214300,
+        "TradeCount": 12986,
+        "VWAP": 407.849184
+      }
+    },
+    {
+      "symbol": "VTI",
+      "LatestTrade": {
+        "Timestamp": "2023-04-11T19:59:45.010680576Z",
+        "Exchange": "V",
+        "Price": 203.84,
+        "Size": 100,
+        "Conditions": [
+          " "
+        ],
+        "ID": 56390392242498,
+        "Tape": "B"
+      },
+      "LatestQuote": {
+        "Timestamp": "2023-04-11T19:59:59.823289088Z",
+        "AskExchange": "V",
+        "AskPrice": 245.42,
+        "AskSize": 1,
+        "BidExchange": "V",
+        "BidPrice": 203.86,
+        "BidSize": 2,
+        "Conditions": [
+          "R"
+        ],
+        "Tape": "B"
+      },
+      "MinuteBar": {
+        "Timestamp": "2023-04-11T19:59:00Z",
+        "OpenPrice": 203.82,
+        "HighPrice": 203.84,
+        "LowPrice": 203.78,
+        "ClosePrice": 203.84,
+        "Volume": 586,
+        "TradeCount": 13,
+        "VWAP": 203.812287
+      },
+      "DailyBar": {
+        "Timestamp": "2023-04-11T04:00:00Z",
+        "OpenPrice": 203.86,
+        "HighPrice": 204.625,
+        "LowPrice": 203.61,
+        "ClosePrice": 203.84,
+        "Volume": 28289,
+        "TradeCount": 349,
+        "VWAP": 204.130522
+      },
+      "PrevDailyBar": {
+        "Timestamp": "2023-04-10T04:00:00Z",
+        "OpenPrice": 202.01,
+        "HighPrice": 203.55,
+        "LowPrice": 201.84,
+        "ClosePrice": 203.55,
+        "Volume": 9944,
+        "TradeCount": 169,
+        "VWAP": 202.618034
+      }
+    }
+  ],
+  "success": true
+}
