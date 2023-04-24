@@ -1,13 +1,29 @@
 <template>
   <!--create a KPI card for each index in majorIndexes-->
   <!--  get the ClosePrice from DailyBar and PrevDailyBar-->
-    <div class="row justify-around">
+    <q-scroll-area
+            class="justify-center"
+            style="height: 200px;"
+            visible
+            ref="scrollAreaRef"
+            :bar-style="barStyle"
+            :thumb-style="thumbStyle"
+    >
         <div
-                v-for="index in majorIndexes"
+                class="row no-wrap justify-center"
         >
-            <q-card class="col-2 q-pa-xs">
+            <q-card class="q-pa-mxs q-mx-xs"
+                    v-for="index in majorIndexes"
+                    :key="index.symbol"
+            >
                 <q-card-section class="q-pa-xs">
-                    <div class="text-h6">{{ index.symbol }}</div>
+                    <q-btn class="text-h6">{{ index.symbol }}
+
+                        <q-popup-proxy>
+                            <asset-info :symbol="index.symbol"/>
+                        </q-popup-proxy>
+
+                    </q-btn>
                 </q-card-section>
                 <q-item style="max-height: 100px; margin:0; padding: 0;">
                     <trend
@@ -38,7 +54,11 @@
                     <div class="row">
                         <div class="col">
                             <div class="text-h6">{{ index.DailyBar.ClosePrice }}</div>
-                            <div class="text-subtitle2">{{ index.PrevDailyBar.ClosePrice }}</div>
+                            <div class="text-subtitle2">
+                                {{ index.DailyBar.ClosePrice > index.PrevDailyBar.ClosePrice ? '+' : '' }}{{
+                                (index.DailyBar.ClosePrice - index.PrevDailyBar.ClosePrice).toFixed(2)
+                                }}
+                            </div>
                         </div>
                         <div class="col-auto">
                             <q-icon
@@ -55,18 +75,20 @@
                     </div>
                 </q-card-section>
             </q-card>
-
-
         </div>
-    </div>
+    </q-scroll-area>
+    <q-dialog v-model="showDialog">
+        <asset-info :symbol="selectedSymbol"/>
+    </q-dialog>
 </template>
 
 <script setup>
 
-import {computed, onMounted, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useMainStore} from "@/store/mainStore.js";
 import {storeToRefs} from "pinia";
 import Trend from "vue3trend";
+import AssetInfo from "@/components/AssetInfo.vue";
 
 
 const mainStore = useMainStore();

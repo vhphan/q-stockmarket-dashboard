@@ -1,25 +1,32 @@
+const fs = require("fs");
+const util = require('util');
 const {logger} = require("#src/middlewares/logger");
 const axios = require("axios");
-const fs = require("fs");
 const isDev = process.env.NODE_ENV === 'development';
 const marketData = require('#src/controllers/marketData');
 const Alpaca = require("@alpacahq/alpaca-trade-api");
 const finnhub = require("finnhub");
+const {promisify} = require("util");
 
 (function () {
-        logger.info('initializing alpaca/finnhub api');
-        const API_KEY = process.env.ALPACA_LIVE_API_KEY;
-        const API_SECRET = process.env.ALPACA_LIVE_SECRET;
+        try {
+            logger.info('initializing alpaca/finnhub api');
+            const API_KEY = process.env.ALPACA_LIVE_API_KEY;
+            const API_SECRET = process.env.ALPACA_LIVE_SECRET;
 
-        // authenticate once
-        global.__alpaca = new Alpaca({
-            keyId: API_KEY,
-            secretKey: API_SECRET,
-        });
+            // authenticate once
+            global.__alpaca = new Alpaca({
+                keyId: API_KEY,
+                secretKey: API_SECRET,
+            });
 
-        const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-        api_key.apiKey = process.env.FINNHUB_API_KEY; // Replace this
-        global.__finnhubClient = new finnhub.DefaultApi();
+            const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+            api_key.apiKey = process.env.FINNHUB_API_KEY; // Replace this
+            global.__finnhubClient = new finnhub.DefaultApi();
+            logger.info('Successfully initialized alpaca/finnhub api');
+        } catch (e) {
+            logger.error(e);
+        }
     }
 )();
 
@@ -30,10 +37,12 @@ const {updateAlpacaData} = require("#src/controllers/marketData");
 const {scraperYahooFinance} = require("#src/controllers/scrapers");
 
 // update alpaca data on startup
-updateAlpacaData();
+updateAlpacaData().then(r => {
+});
 
 cron.schedule('*/10 * * * *', () => {
-        updateAlpacaData();
+        updateAlpacaData().then(r => {
+        });
     }
 );
 
@@ -42,11 +51,13 @@ const index = (req, res) => {
         message: 'Welcome to the v1 API',
     });
 };
+
 const devModeStaticApi = (req, res, next) => {
     const currentPath = req.url;
-    const jsonFileName = currentPath.replace('/', '') + '.json';
+    const jsonFileName = currentPath.replace('/', '').replace('?', '_').replaceAll('&', '_') + '.json';
     if (!jsonFileName) next();
     const jsonFile = global.__appDir + '/data/' + jsonFileName;
+    logger.info(`checking for ${jsonFile}...`)
     if (fs.existsSync(jsonFile)) {
         const data = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
         logger.info(`returning data from ${jsonFile}`);
@@ -72,20 +83,61 @@ const getBars = async (req, res) => {
     });
 };
 
-const getMarketNews = async (req, res) => {
-    const finnhubClient = global.__finnhubClient;
-    finnhubClient.marketNews('general', {}, (error, data, response) => {
-        if (error) throw error;
-        res.json({
-                data,
-                success: true,
-            }
-        );
-    });
-};
 
 const getMajorIndexes = async (req, res) => {
     const data = await marketData.getMajorIndexes();
+    res.json({
+        data,
+        success: true,
+    });
+};
+
+
+const getAssetInfo = async (req, res) => {
+    const alpaca = global.__alpaca;
+    const symbol = req.query.symbol;
+    const data = (await alpaca.getAsset(symbol));
+    res.json({
+        data,
+        success: true,
+    })
+};
+
+const getActiveAssets = async (req, res) => {
+    const alpaca = global.__alpaca;
+    const exchange = req.query.exchange || 'NASDAQ';
+    logger.info(`getting active assets for exchange ${exchange} from ALPACA API...`)
+    const data = (await alpaca.getAssets({status: 'active'})).filter(asset => asset.exchange === exchange).map(asset => {
+        return {
+            value: asset.symbol,
+            label: `${asset.symbol} - ${asset.name}`,
+        }
+    });
+    res.json({
+        data,
+        success: true,
+    })
+}
+
+const getBarsMultipleSymbols = async (req, res) => {
+    const {symbols, numberOfDays, timeframe} = req.query;
+    const data = await marketData.getBarsMultipleSymbols({
+        symbols,
+        numberOfDays,
+        timeframe,
+    });
+    res.json({
+        data,
+        success: true,
+    });
+}
+
+const getBarsMultipleSymbolsDaily = async (req, res) => {
+    const {symbols, numberOfDays} = req.query;
+    const data = await marketData.getBarsMultipleSymbols({
+        symbols,
+        numberOfDays,
+    });
     res.json({
         data,
         success: true,
@@ -101,17 +153,6 @@ const getTopGainers = async (req, res) => {
     });
 };
 
-const getDailyTrendMultiSymbols = async (req, res) => {
-    const {symbols, numberOfDays} = req.query;
-    const data = await marketData.getBarsMultipleSymbols({
-        symbols,
-        numberOfDays,
-    });
-    res.json({
-        data,
-        success: true,
-    });
-};
 
 // const topGainers24Hours = async (req, res) => {
 //
@@ -130,23 +171,74 @@ const getDailyTrendMultiSymbols = async (req, res) => {
 //     });
 // };
 
-async function cheers(url) {
-    console.log('cheers');
-    const html = await axios.get(url);
-    const cheerio = require('cheerio');
-    const $ = cheerio.load(html.data);
-    return $('meta[property="og:description"]').attr('content');
-}
+const getMarketNews = async (req, res) => {
+
+    const finnhubClient = global.__finnhubClient;
+    const data = await promisify(finnhubClient.marketNews.bind(finnhubClient))('general', {});
+    res.json({
+        data,
+        success: true,
+    });
+
+    // finnhubClient.marketNews('general', {}, (error, data, response) => {
+    //     if (error) throw error;
+    //     res.json({
+    //             data,
+    //             success: true,
+    //         }
+    //     );
+    // });
+};
+
+const getStockSymbols = async (req, res) => {
+    const mic = req.query.mic || 'XNAS';
+    const finnhubClient = global.__finnhubClient;
+    const data = await promisify(finnhubClient.stockSymbols.bind(finnhubClient))('US', {mic});
+    res.json({
+            data: data.map(d => ({
+                symbol: d.symbol,
+                description: d.description,
+            })),
+            success: true,
+        }
+    );
+    // finnhubClient.stockSymbols('US', {mic} ,(error, data, response) => {
+    //     if (error) throw error;
+    //     res.json({
+    //             data: data.map(d => ({
+    //                 symbol: d.symbol,
+    //                 description: d.description,
+    //             })),
+    //             success: true,
+    //         }
+    //     );
+    // });
+};
+
+const getCompanyProfile = async (req, res) => {
+    const symbol = req.query.symbol;
+    const finnhubClient = global.__finnhubClient;
+    const data = await promisify(finnhubClient.companyProfile2.bind(finnhubClient))({symbol});
+    res.json({
+            data,
+            success: true,
+        }
+    );
+};
 
 
 module.exports = {
-    cheers,
     index,
     devModeStaticApi,
     getBars,
+    getBarsMultipleSymbols,
     updateAlpacaData,
-    getMarketNews,
     getMajorIndexes,
     getTopGainers,
-    getDailyTrendMultiSymbols,
+    getBarsMultipleSymbolsDaily,
+    getMarketNews,
+    getStockSymbols,
+    getCompanyProfile,
+    getAssetInfo,
+    getActiveAssets,
 };

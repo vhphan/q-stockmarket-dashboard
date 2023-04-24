@@ -10,7 +10,7 @@
                         <!--            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" alt="logo">-->
 <!--                        <img class="doc-header__logo-img" src="https://cdn.quasar.dev/logo-v2/svg/logo-dark.svg"-->
 <!--                             alt="Quasar Logo" width="48" height="48">-->
-                        <img class="doc-header__logo-img" src="function-svgrepo-com.svg"
+                        <img class="doc-header__logo-img" :src="`${basePath}/function-svgrepo-com.svg`"
                              alt="Quasar Logo" width="48" height="48" >
                     </q-avatar>
 <!--                    get title from package.json -->

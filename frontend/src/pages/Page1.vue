@@ -19,7 +19,7 @@
             </template>
             <template v-slot:after>
                 <div class="q-pa-xs right-container">
-                    <major-indexes />
+                    <right-tabs/>
                 </div>
             </template>
         </q-splitter>
@@ -27,30 +27,15 @@
 </template>
 
 <script>
-import {api} from "@/plugins/http.js";
-import {useMainStore} from "@/store/mainStore.js";
-import {computed, onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import Tabs from "@/components/Tabs.vue";
-import TopGainers from "@/components/TopGainers.vue";
-import MajorIndexes from "@/components/MajorIndexes.vue";
-
+import {basePath} from "@/constants.js";
+import RightTabs from "@/components/RightTabs.vue";
 
 export default {
     name: "Page1",
-    components: {MajorIndexes, TopGainers, Tabs},
+    components: {RightTabs, Tabs},
     setup() {
-
-        const mainStore = useMainStore();
-
-        const checkApiCall = async () => {
-            const response = await api.get("/api/v1/");
-            console.log(response);
-        };
-
-
-        onMounted(async () => {
-            }
-        );
 
         const hSplitterModel = ref(50);
         const cssTableHeight = ref(`calc(${100 - hSplitterModel.value}vh - 90px)`);
@@ -63,11 +48,11 @@ export default {
 
 
         return {
-            checkApiCall,
             hSplitterModel,
             vSplitterModel: ref(40), // start at 50%
             cssTableHeight,
             containerHeight,
+            basePath,
         };
     }
 };

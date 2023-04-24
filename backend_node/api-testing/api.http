@@ -24,7 +24,26 @@ GET http://localhost:3004/api/v1/getMajorIndexes
 Content-Type: application/json
 
 
+### GET request with a header
+GET http://localhost:3004/api/v1/getStockSymbols
+Content-Type: application/json
+
 
 ### GET request with a header
 GET http://localhost:3004/api/v1/getBars?timeframe=1H&symbol=GOOG
+Content-Type: application/json
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getCompanyProfile?symbol=SPY
+Content-Type: application/json
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getAssetInfo?symbol=GOOG
+Content-Type: application/json
+
+
+### GET request with a header
+GET http://localhost:3004/api/v1/getActiveAssets
 Content-Type: application/json

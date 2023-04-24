@@ -30,6 +30,7 @@
                         <component :is="tab.componentName"></component>
                     </q-tab-panel>
                 </q-tab-panels>
+
             </q-card>
 
         </div>
@@ -38,25 +39,26 @@
 
 <script>
 import {computed, ref} from 'vue';
-import MarketNews from "@/components/MarketNews.vue";
-import TopGainers from "@/components/TopGainers.vue";
+import Section1 from "@/sections/Section1.vue";
+import Section2 from "@/sections/Section2.vue";
 
 export default {
-    components: {TopGainers, MarketNews},
+    components: {Section1, Section2},
 
     setup() {
 
-        const tab = ref('marketNews');
+        const tab = ref('section1');
         const tabs = [
             {
-                name: 'marketNews',
-                label: 'Market News',
-                componentName: 'MarketNews'
-            }, {
-                name: 'topGainers',
-                label: 'Top Gainers',
-                componentName: 'TopGainers'
-            }
+                name: 'section1',
+                label: 'Candlestick Chart',
+                componentName: 'Section1'
+            },
+            {
+                name: 'section2',
+                label: 'Returns / Sharpe Ratio',
+                componentName: 'Section2'
+            },
         ];
         const toolBarHeight = computed(() => {
             return document.querySelector('.q-toolbar').clientHeight;

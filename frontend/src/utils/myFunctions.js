@@ -521,3 +521,9 @@ export const getTodayDateString = function () {
     const yyyy = today.getFullYear();
     return `${yyyy}-${mm}-${dd}`;
 };
+
+export const getNDaysAgoDateString = function (n) {
+    const d = new Date();
+    d.setDate(d.getDate() - n);
+    return d.toISOString().split('T')[0];
+}

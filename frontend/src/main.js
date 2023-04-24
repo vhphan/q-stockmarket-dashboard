@@ -11,10 +11,13 @@ import 'quasar/src/css/index.sass';
 // and placed in same folder as main.js
 import App from './App.vue';
 import router from "./router/index.js";
+
 import {createPinia} from "pinia";
 
 const pinia = createPinia();
+
 const myApp = createApp(App);
+
 myApp.use(Quasar, {
     plugins: [Notify, LoadingBar, Dialog], // import Quasar plugins and add here
     config: {

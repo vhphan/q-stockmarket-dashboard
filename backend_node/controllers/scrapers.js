@@ -2,7 +2,6 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 async function scraperYahooFinance(url) {
-    console.log('cheers');
     const html = await axios.get(url);
     const cheerio = require('cheerio');
     const $ = cheerio.load(html.data);
@@ -22,7 +21,6 @@ async function scraperYahooFinance(url) {
         );
         results.push(result);
     });
-    console.log(results);
     return results;
 }
 

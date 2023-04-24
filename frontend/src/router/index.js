@@ -1,12 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
-import Page1 from "../pages/Page1.vue";
-import Page2 from "../pages/Page2.vue";
-import {basePath} from "../constants.js";
+import Page1 from "@/pages/Page1.vue";
+import Page2 from "@/pages/Page2.vue";
+import {basePath} from "@/constants.js";
 
 const routes = [
     {
-        path: "/:catchAll(.*)",
+        path: "/",
         redirect: {name: 'Page1'},
         name: 'Others',
     },
@@ -14,6 +14,7 @@ const routes = [
         path: basePath + 'page1',
         name: 'Page1',
         component: Page1,
+
         meta: {label: 'Home'}
     },
     {

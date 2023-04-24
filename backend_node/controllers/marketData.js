@@ -3,7 +3,6 @@ const {logger} = require("#src/middlewares/logger");
 const moment = require("moment");
 const _ = require("lodash");
 
-const finnhub = require("finnhub");
 
 
 function getLastNTradingDays(numberOfDays) {
@@ -34,18 +33,10 @@ async function getBars({symbol, numberOfDays = 10, timeframe = "1Day"}) {
         timeframe: timeframe,
         adjustment: "all",
     });
-
-    // let barsData = [];
-    // for await (const b of bars) {
-    //     barsData.push(b);
-    // }
-    // return barsData;
     return await getDataFromAsyncGenerator(bars);
-
 }
 
 async function getBarsMultipleSymbols({symbols, numberOfDays = 10, timeframe = "1Day"}) {
-    console.log(symbols);
     const alpaca = global.__alpaca;
     const lastNTradingDays = getLastNTradingDays(numberOfDays);
 
@@ -56,7 +47,6 @@ async function getBarsMultipleSymbols({symbols, numberOfDays = 10, timeframe = "
         adjustment: "all",
     });
     return await getDataFromAsyncGenerator(bars);
-
 }
 
 async function getDataFromAsyncGenerator(generator) {
@@ -72,17 +62,45 @@ async function getMajorIndexes() {
     // const lastNTradingDays = getLastNTradingDays(5);
 
     return (await getDataFromAsyncGenerator(await alpaca.getSnapshots(
-            ["SPY", "DIA", "IWM", "VTI", "MDY", "DBC"],
+            // ["SPY", "DIA", "IWM", "VTI", "MDY", "DBC"],
+            [
+                "SPY",
+                "QQQ",
+                "IWM",
+                "DIA",
+                "VTI",
+                "MDY",
+                "DBC",
+                "FEZ",
+                "OEF",
+                "IWF",
+                "IWD",
+                "PFF",
+                "VOO",
+                "IJH",
+                "IWO",
+                "IWN",
+                "ACWI",
+                "IEMG",
+            ]
+
+
         ))
     );
 }
 
-const updateAlpacaData = async () => {
-    const alpaca = global.__alpaca;
-    logger.info('updating alpaca data');
-    global.__clock = await alpaca.getClock();
-    global.__calendar = !global.__isDev ? await alpaca.getCalendar() : require('../data/calendar.json');
 
+
+const updateAlpacaData = async () => {
+    try {
+        const alpaca = global.__alpaca;
+        logger.info('updating alpaca data');
+        global.__clock = await alpaca.getClock();
+        global.__calendar = !global.__isDev ? await alpaca.getCalendar() : require('../data/calendar.json');
+        logger.info('alpaca data updated');
+    } catch (e) {
+        logger.error(e);
+    }
     // save calendar as JSON file
     // const fs = require('fs');
     // const path = require('path');
@@ -102,7 +120,6 @@ const updateAlpacaData = async () => {
     // );
     // save to filepath
 
-    logger.info('alpaca data updated');
 };
 
 module.exports = {
@@ -110,4 +127,5 @@ module.exports = {
     getMajorIndexes,
     updateAlpacaData,
     getBarsMultipleSymbols,
+    getDataFromAsyncGenerator
 };
